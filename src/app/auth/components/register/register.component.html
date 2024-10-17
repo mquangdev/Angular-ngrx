@@ -1,0 +1,85 @@
+<ng-container *ngIf="data$ | async as data">
+  <div class="auth-page">
+    <div class="container page">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-center">Sign Up</h1>
+          <p class="text-center">
+            <a routerLink="/login">Have an account?</a>
+          </p>
+          <!-- <ng-container *ngIf="data.validationErrors">
+            <div
+              *ngFor="let error of data.validationErrors | keyvalue"
+              class="text-danger"
+            >
+              <strong>{{ error.key }}:</strong>
+              <ul>
+                <li *ngFor="let message of error.value">{{ message }}</li>
+              </ul>
+            </div>
+          </ng-container> -->
+          <app-back-end-error-msg
+            *ngIf="data.validationErrors"
+            [errors]="data.validationErrors"
+          />
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <fieldset class="form-group mt-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                formControlName="username"
+              />
+              <div
+                *ngIf="
+                  form.get('username')?.invalid && form.get('username')?.touched
+                "
+                class="text-danger"
+              >
+                Username is required
+              </div>
+            </fieldset>
+            <fieldset class="form-group mt-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Email"
+                formControlName="email"
+              />
+              <div
+                *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+                class="text-danger"
+              >
+                Email is required
+              </div>
+            </fieldset>
+            <fieldset class="form-group mt-2">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                formControlName="password"
+              />
+              <div
+                *ngIf="
+                  form.get('password')?.invalid && form.get('password')?.touched
+                "
+                class="text-danger"
+              >
+                Password is required
+              </div>
+            </fieldset>
+            <button
+              [disabled]="form.invalid || data.isSubmitting"
+              type="submit"
+              class="btn btn-primary pull-right mt-2"
+            >
+              <span *ngIf="!data.isLoading">Sign Up</span>
+              <span *ngIf="data.isLoading">Loading...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

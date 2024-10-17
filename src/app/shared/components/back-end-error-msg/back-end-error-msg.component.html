@@ -1,0 +1,6 @@
+<div *ngFor="let error of errors | keyvalue" class="text-danger">
+  <strong>{{ error.key }}:</strong>
+  <ul>
+    <li *ngFor="let message of error.value">{{ message }}</li>
+  </ul>
+</div>
