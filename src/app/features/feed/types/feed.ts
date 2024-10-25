@@ -1,3 +1,5 @@
+import { Profile } from 'src/app/shared/types/profile';
+
 export interface Feed {
   slug: string;
   title: string;
@@ -7,12 +9,5 @@ export interface Feed {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
-  author: Author;
-}
-
-export interface Author {
-  username: string;
-  bio: string;
-  image: string;
-  following: boolean;
+  author: Profile;
 }

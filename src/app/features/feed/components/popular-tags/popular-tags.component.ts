@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { combineLatest } from 'rxjs';
+import { feedActions } from '../../store/actions';
+import {
+  selectIsLoading,
+  selectPopularTags,
+  selectValidationErrors,
+} from '../../store/reducers';
 
 @Component({
   selector: 'app-popular-tags',
@@ -6,7 +14,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./popular-tags.component.css'],
 })
 export class PopularTagsComponent implements OnInit {
-  constructor() {}
+  data$ = combineLatest({
+    popularTags: this.store.select(selectPopularTags),
+    isLoading: this.store.select(selectIsLoading),
+    error: this.store.select(selectValidationErrors),
+  });
+  constructor(private store: Store) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(feedActions.getPopularTags());
+  }
 }

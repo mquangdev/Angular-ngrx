@@ -18,4 +18,13 @@ export class FeedService {
       `${this.url}?offset=${page}&limit=${pageSize}`
     );
   }
+
+  getYourFeed(
+    page: number = 0,
+    pageSize: number = 10
+  ): Observable<GetFeedResponse> {
+    return this.http.get<GetFeedResponse>(
+      `${this.url}/feed?offset=${page}&limit=${pageSize}`
+    );
+  }
 }

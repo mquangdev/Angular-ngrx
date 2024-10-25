@@ -1,0 +1,40 @@
+<ng-container *ngIf="data$ | async as data">
+  <app-loading [isLoading]="data.isLoading"></app-loading>
+  <div *ngIf="data.errors">
+    <app-back-end-error-msg [errors]="data.errors"></app-back-end-error-msg>
+  </div>
+  <div *ngIf="data.feeds.articlesCount > 0; else empty">
+    <div class="article-preview" *ngFor="let article of data.feeds.articles">
+      <div class="article-meta">
+        <a [routerLink]="['/profiles', article.author.username]">
+          <img [src]="article.author.image" [alt]="article.author.username" />
+        </a>
+        <div class="info">
+          <a [routerLink]="['/profiles', article.author.username]">
+            {{ article.author.username }}
+          </a>
+          <span class="date">{{
+            article.createdAt | date : "dd/MM/yyyy hh:mm a"
+          }}</span>
+        </div>
+        <div class="pull-xs-right">ADD TO FAVORITES</div>
+      </div>
+      <a [routerLink]="['/articles', article.slug]" class="preview-link">
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.description }}</p>
+        <span>Read more...</span>
+        <app-tagList [tagList]="article.tagList"></app-tagList>
+      </a>
+    </div>
+    <app-pagination
+      [currentPage]="request.page"
+      [pageSize]="request.pageSize"
+      (page$)="onChangePage($event)"
+      [totalItems]="data.feeds.articlesCount"
+    ></app-pagination>
+  </div>
+</ng-container>
+
+<ng-template #empty>
+  <div class="px-2 mt-2">Don't have any post</div>
+</ng-template>

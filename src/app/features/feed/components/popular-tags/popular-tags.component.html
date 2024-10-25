@@ -1,3 +1,18 @@
-<p>
-  popular-tags works!
-</p>
+<ng-container *ngIf="data$ | async as data">
+  <app-loading *ngIf="data.isLoading"></app-loading>
+  <app-back-end-error-msg
+    *ngIf="data.error"
+    [errors]="data.error"
+  ></app-back-end-error-msg>
+  <div class="sidebar" *ngIf="data.popularTags">
+    <p>Popular Tags</p>
+    <div class="tag-list">
+      <a
+        *ngFor="let tag of data.popularTags"
+        [routerLink]="['/tags', tag]"
+        class="tag-default tag-pill"
+        >{{ tag }}</a
+      >
+    </div>
+  </div>
+</ng-container>

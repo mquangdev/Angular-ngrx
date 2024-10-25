@@ -2,5 +2,6 @@ import { BaseState } from 'src/app/shared/types/base-state';
 import { GetFeedResponse } from './get-feed-response';
 
 export interface FeedState extends BaseState {
-  globalArticles: GetFeedResponse;
+  feeds: GetFeedResponse;
+  popularTags: string[];
 }

@@ -1,8 +1,12 @@
-<div class="container d-flex">
-  <div class="w-75">
-    <router-outlet></router-outlet>
-  </div>
-  <div class="w-25">
-    <app-popular-tags></app-popular-tags>
+<div class="home-page">
+  <app-banner></app-banner>
+  <div class="container d-flex gap-4">
+    <div class="w-75">
+      <app-feed-toggler [tagName]="'coffee'"></app-feed-toggler>
+      <router-outlet></router-outlet>
+    </div>
+    <div class="w-25">
+      <app-popular-tags></app-popular-tags>
+    </div>
   </div>
 </div>

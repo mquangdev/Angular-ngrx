@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { GlobalFeedComponent } from './components/global-feed/global-feed.component';
 import { YourFeedComponent } from './components/your-feed/your-feed.component';
 import { FeedComponent } from './feed.component';
+import { FeedTagComponent } from './components/feed-tag/feed-tag.component';
 
 const routes: Routes = [
   {
@@ -18,8 +19,12 @@ const routes: Routes = [
         component: GlobalFeedComponent,
       },
       {
-        path: 'your',
+        path: 'feed',
         component: YourFeedComponent,
+      },
+      {
+        path: 'tags/:tagName',
+        component: FeedTagComponent,
       },
     ],
   },

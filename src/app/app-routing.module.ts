@@ -12,6 +12,13 @@ export const appRoutes: Routes = [
       import('src/app/auth/auth.routing').then((m) => m.loginRoutes),
   },
   {
+    path: 'profiles',
+    loadChildren: () =>
+      import('src/app/features/profile/profile.module').then(
+        (m) => m.ProfileModule
+      ),
+  },
+  {
     path: '',
     loadChildren: () =>
       import('src/app/features/feed/feed.module').then((m) => m.FeedModule),
