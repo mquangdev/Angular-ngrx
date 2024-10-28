@@ -51,6 +51,29 @@ export const getYourFeedsEffect = createEffect(
   }
 );
 
+export const getFeedByTagEffect = createEffect(
+  (action$ = inject(Actions), feedService = inject(FeedService)) => {
+    return action$.pipe(
+      ofType(feedActions.getFeedByTag),
+      switchMap(({ request }) => {
+        return feedService
+          .getFeedGlobal(request.page, request.pageSize, request.tagName)
+          .pipe(
+            map((response: GetFeedResponse) => {
+              return feedActions.getFeedByTagSuccess({ response });
+            }),
+            catchError((err: HttpErrorResponse) => {
+              return of(feedActions.getFeedByTagFailure(err.error));
+            })
+          );
+      })
+    );
+  },
+  {
+    functional: true,
+  }
+);
+
 export const getPopularTagsEffect = createEffect(
   (
     action$ = inject(Actions),

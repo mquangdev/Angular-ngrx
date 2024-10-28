@@ -11,6 +11,7 @@ const initialState: FeedState = {
   isLoading: false,
   validationErrors: null,
   popularTags: [],
+  tagSelected: null,
 };
 
 const feedFeature = createFeature({
@@ -31,6 +32,26 @@ const feedFeature = createFeature({
       };
     }),
     on(feedActions.getGlobalArticlesFailure, function (state, action) {
+      return {
+        ...state,
+        isLoading: false,
+        validationErrors: action.errors,
+      };
+    }),
+    on(feedActions.getFeedByTag, function (state) {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }),
+    on(feedActions.getFeedByTagSuccess, function (state, action) {
+      return {
+        ...state,
+        isLoading: false,
+        feeds: action.response,
+      };
+    }),
+    on(feedActions.getFeedByTagFailure, function (state, action) {
       return {
         ...state,
         isLoading: false,
@@ -77,6 +98,12 @@ const feedFeature = createFeature({
         validationErrors: action.errors,
       };
     }),
+    on(feedActions.setTagSelected, (state, action) => {
+      return {
+        ...state,
+        tagSelected: action.tag,
+      };
+    }),
     on(routerNavigationAction, (state) => {
       let popularTagsCache = state.popularTags;
       return {
@@ -94,4 +121,5 @@ export const {
   selectValidationErrors,
   selectFeeds,
   selectPopularTags,
+  selectTagSelected,
 } = feedFeature;

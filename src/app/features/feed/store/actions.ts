@@ -16,5 +16,9 @@ export const feedActions = createActionGroup({
     'Get popular tags': emptyProps(),
     'Get popular tags Success': props<{ response: PopularTagResponse }>(),
     'Get popular tags Failure': props<{ errors: BackEndError }>(),
+    'Set Tag Selected': props<{ tag: string }>(),
+    'Get feed by tag': props<{ request: GetFeedRequest }>(),
+    'Get feed by tag Success': props<{ response: GetFeedResponse }>(),
+    'Get feed by tag Failure': props<{ errors: BackEndError }>(),
   },
 });

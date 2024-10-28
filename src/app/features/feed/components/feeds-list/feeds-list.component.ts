@@ -21,7 +21,8 @@ import { feedActions } from '../../store/actions';
   styleUrls: ['./feeds-list.component.css'],
 })
 export class FeedsListComponent implements OnInit, OnChanges {
-  @Input() type: 'global' | 'your' | null = null;
+  @Input() type: 'global' | 'your' | 'tag' | null = null;
+  @Input() tagName?: string;
   request: GetFeedRequest = {
     page: 0,
     pageSize: 10,
@@ -46,6 +47,13 @@ export class FeedsListComponent implements OnInit, OnChanges {
     }
     if (this.type === 'your') {
       this.store.dispatch(feedActions.getYourFeeds({ request: this.request }));
+    }
+    if (this.type === 'tag' && this.tagName) {
+      this.store.dispatch(
+        feedActions.getFeedByTag({
+          request: { ...this.request, tagName: this.tagName },
+        })
+      );
     }
   }
 

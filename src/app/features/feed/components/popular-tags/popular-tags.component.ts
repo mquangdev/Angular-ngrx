@@ -7,6 +7,7 @@ import {
   selectPopularTags,
   selectValidationErrors,
 } from '../../store/reducers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-popular-tags',
@@ -19,9 +20,14 @@ export class PopularTagsComponent implements OnInit {
     isLoading: this.store.select(selectIsLoading),
     error: this.store.select(selectValidationErrors),
   });
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.store.dispatch(feedActions.getPopularTags());
+  }
+
+  navigateToTag(tagName: string, $event: MouseEvent) {
+    $event.preventDefault();
+    this.router.navigate(['tags', tagName]);
   }
 }

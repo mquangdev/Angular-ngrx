@@ -3,7 +3,7 @@
     <ul class="nav nav-pills outline-active">
       <li class="nav-item" *ngIf="data.currentUser">
         <a routerLink="/feed" class="nav-link" routerLinkActive="active"
-          >Your feed</a
+          >My feed</a
         >
       </li>
       <li class="nav-item">
@@ -11,14 +11,14 @@
           >Global feed</a
         >
       </li>
-      <li class="nav-item" *ngIf="tagName">
+      <li class="nav-item" *ngIf="data.tagSelected">
         <a
-          [routerLink]="['/tags', tagName]"
+          (click)="navigateToTag(data.tagSelected, $event)"
           class="nav-link"
           routerLinkActive="active"
         >
           <i class="ion-pound"></i>
-          {{ tagName }}
+          {{ data.tagSelected }}
         </a>
       </li>
     </ul>

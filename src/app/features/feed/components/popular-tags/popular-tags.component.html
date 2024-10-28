@@ -9,8 +9,8 @@
     <div class="tag-list">
       <a
         *ngFor="let tag of data.popularTags"
-        [routerLink]="['/tags', tag]"
-        class="tag-default tag-pill"
+        (click)="navigateToTag(tag, $event)"
+        class="tag-default tag-pill hover"
         >{{ tag }}</a
       >
     </div>

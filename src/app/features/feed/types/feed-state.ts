@@ -4,4 +4,5 @@ import { GetFeedResponse } from './get-feed-response';
 export interface FeedState extends BaseState {
   feeds: GetFeedResponse;
   popularTags: string[];
+  tagSelected: string | null;
 }

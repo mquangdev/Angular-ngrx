@@ -12,11 +12,14 @@ export class FeedService {
   constructor(private http: HttpClient) {}
   getFeedGlobal(
     page: number = 0,
-    pageSize: number = 10
+    pageSize: number = 10,
+    tagName?: string
   ): Observable<GetFeedResponse> {
-    return this.http.get<GetFeedResponse>(
-      `${this.url}?offset=${page}&limit=${pageSize}`
-    );
+    let url = `${this.url}?offset=${page}&limit=${pageSize}`;
+    if (tagName) {
+      url += `&tag=${tagName}`;
+    }
+    return this.http.get<GetFeedResponse>(url);
   }
 
   getYourFeed(
